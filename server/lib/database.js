@@ -5,4 +5,4 @@ var connection = require('mysql').createConnection({
 	database: 'spacesaver'
 });
 
-//exports.users = require('./databaseModules/users').connect(connection);
+exports.users = require('./databaseModules/users').connect(connection);
