@@ -1,5 +1,5 @@
 exports.connect = function(socket, server) {
-	this.sendResponse = function(data) {
+	var sendResponse = function(data) {
 		socket.emit('sTemplate', data);
 	}
 

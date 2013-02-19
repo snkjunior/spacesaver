@@ -1,11 +1,12 @@
 exports.connect = function(socket, server) {
-	this.sendResponse = function(data) {
+	var sendResponse = function(data) {
 		socket.emit('sLogin', data);
 	}
 
     var requestHandler = function(data) {
 		if (!data || !data.login || !data.password || data.login == "" || data.password == "") {
-			this.sendResponse({type: 'error', error: 'Data is missing'});
+			sendResponse({type: 'error', error: 'Data is missing'});
+			return;
 		}
 
 		var login = data.login;
@@ -15,14 +16,14 @@ exports.connect = function(socket, server) {
 			if(userId != -1) {
 				var loginResult = server.userLogin(userId, socket.id);
 				if (loginResult == true) {
-					this.sendResponse({type: 'ok'});
+					sendResponse({type: 'ok'});
 				}
 				else {
-					this.sendResponse({type: 'error', error: loginResult});
+					sendResponse({type: 'error', error: loginResult});
 				}
 			}
 			else {
-				this.sendResponse({type: 'error', error: 'Unknown error'});
+				sendResponse({type: 'error', error: 'Unknown error'});
 			}
 		})
     }

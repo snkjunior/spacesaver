@@ -1,5 +1,5 @@
 exports.connect = function(socket, server) {
-	this.sendResponse = function(data) {
+	var sendResponse = function(data) {
 		socket.emit('sRegistration', data);
 	}
 
@@ -7,7 +7,8 @@ exports.connect = function(socket, server) {
 		if(!data || !data.login || !data.password || !data.repassword || !data.email
 			|| data.login == '' || data.password == '' || data.repassword == '' || data.email == ''
 		) {
-			this.sendResponse({type: 'error', error: 'Data is missing'});
+			sendResponse({type: 'error', error: 'Data is missing'});
+			return;
 		}
 
 		var login = data.login;
@@ -16,7 +17,8 @@ exports.connect = function(socket, server) {
 		var email = data.email;
 
 		if (password != repassword) {
-			this.sendResponse({type: 'error', error: 'Repassword does not match password'});
+			sendResponse({type: 'error', error: 'Repassword does not match password'});
+			return;
 		}
 
 		// Is user exists
@@ -24,12 +26,12 @@ exports.connect = function(socket, server) {
 			if (result == true) {
 				server.database.users.createNewUser(login, password, email, function(result) {
 					if(result == true) {
-						this.sendResponse({type: 'ok'});
+						sendResponse({type: 'ok'});
 					}
 				})
 			}
 			else {
-				this.sendResponse({type: 'error', error: 'User with such login already exists'});
+				sendResponse({type: 'error', error: 'User with such login already exists'});
 			}
 		});
     }

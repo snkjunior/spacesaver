@@ -9,10 +9,11 @@ var Server = function(sockets) {
 	}
 
 	this.addLoginHandlersToSocket = function(socket, userId) {
-		//require('./socketModules/ping').connect(socket, this, userI);
-		//require('./socketModules/createCharacter').connect(socket, this);
-		//require('./socketModules/deleteCharacter').connect(socket, this);
-		//require('./socketModules/chooseCharacter').connect(socket, this);
+		//require('./socketModules/ping').connect(socket, this, userId);
+		//require('./socketModules/getCharactersList').connect(socket, this, userId);
+		//require('./socketModules/createCharacter').connect(socket, this, userId);
+		//require('./socketModules/deleteCharacter').connect(socket, this, userId);
+		//require('./socketModules/chooseCharacter').connect(socket, this, userId);
 	}
 
 	this.addInGameHandlersToSocket = function(socket, userId) {
@@ -29,8 +30,6 @@ var Server = function(sockets) {
 			lastPingTime: Math.round(+new Date() / 1000),
 			lastActionTime: Math.round(+new Date() / 1000)
 		}
-
-		return true;
 	}
 }
 
