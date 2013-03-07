@@ -58,7 +58,7 @@ function formActionDiv(room, state, action) {
 	if (activeCharacter != null) {
 		params = 'style="background-color: #dddddd" onclick="setCharacterAction(\''+activeCharacter.id+'\', \''+room.id+'\', \''+state.id+'\', \''+action.id+'\')" onmouseover="this.setAttribute(\'style\', \'background-color: #ffff00; cursor: pointer\')" onmouseout="this.setAttribute(\'style\', \'background-color: #dddddd\')"';
 	}
-	var div = '<div ' + params + '><b>' + room.name + '</b>: ' + action.name + ' to "' + state.name + '"(' + action.skills.join(',') + ') - ' + action.toStates[state.id].no + ((Object.keys(action.toStates[state.id]).length > 1) ? '*' : '') + ' </div>';
+	var div = '<div ' + params + '><b>' + room.name + '</b>: ' + action.name + ' на "' + state.name + '"(' + action.skills.join(',') + ') - ' + action.toStates[state.id].no + ((Object.keys(action.toStates[state.id]).length > 1) ? '*' : '') + ' </div>';
 	return div;
 }
 
@@ -70,11 +70,11 @@ function formCharacterDiv(character) {
 	else {
 		div = '<div style="background-color: #dddddd" onclick="selectCharacter(\''+character.id+'\')" onmouseover="this.setAttribute(\'style\', \'background-color: #ffff00; cursor: pointer\')" onmouseout="this.setAttribute(\'style\', \'background-color: #dddddd\')"><div><b>' + character.name + '</b></div>';
 	}
-	div += '<div>  job: ' + character.job + ' </div>';
-	div += '<div>  engineering: ' + character.skills.engineering + ' </div>';
-	div += '<div>  medicine: ' + character.skills.medicine + ' </div>';
-	div += '<div>  programming: ' + character.skills.programming + ' </div>';
-	div += '<div>  physics: ' + character.skills.physics + ' </div>';
+	div += '<div>  профессия: ' + character.job + ' </div>';
+	div += '<div>  инженерия: ' + character.skills.engineering + ' </div>';
+	div += '<div>  медицина: ' + character.skills.medicine + ' </div>';
+	div += '<div>  программирование: ' + character.skills.programming + ' </div>';
+	div += '<div>  физика: ' + character.skills.physics + ' </div>';
 	var actionName = '-';
 	var actionRoom = '-';
 	var actionState = '-';
@@ -84,9 +84,9 @@ function formCharacterDiv(character) {
 		actionRoom = mission.rooms[characterAction.roomId].name;
 		actionState = states[characterAction.stateId].name;
 	}
-	div += '<div>  action name: ' + actionName + ' </div>';
-	div += '<div>  action room: ' + actionRoom + ' </div>';
-	div += '<div>  action state: ' + actionState + ' </div>';
+	div += '<div>  задание: ' + actionName + ' </div>';
+	div += '<div>  цель: ' + actionRoom + ' </div>';
+	div += '<div>  проблема: ' + actionState + ' </div>';
 	div += '</div>';	
 	return div;
 }

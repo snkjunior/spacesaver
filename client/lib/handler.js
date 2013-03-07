@@ -18,5 +18,9 @@ function setCharacterAction(characterId, roomId, stateId, actionId) {
 }
 
 function turn() {
-	
+	$.each(mission.charactersAction, function(characterId, actionInfo) {
+		var room = rooms[actionInfo.roomId];
+		var state = states[actionInfo.stateId];
+		var action = actions[actionInfo.actionId];
+	});
 }

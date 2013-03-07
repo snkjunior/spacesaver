@@ -8,16 +8,16 @@ var activeCharacter = null;
 function main() {
 	// Init states
 	states = {
-		ignition: new State('ignition', 'Ignition', 1, {newState: 'fire'}, ['extinguisher', 'depressurization']),
-		fire: new State('fire', 'Fire', 1, {hp: -1}, ['extinguisher', 'depressurization']),
-		activeDepressurization: new State('activeDepressurization', 'Depressurization system is activate', 1, {}, [])
+		ignition: new State('ignition', 'Возгорание', 1, {newState: 'fire'}, ['extinguisher', 'depressurization']),
+		fire: new State('fire', 'Пожар', 1, {hp: -1}, ['extinguisher', 'depressurization']),
+		activeDepressurization: new State('activeDepressurization', 'Системе разгерметизации активна', 1, {}, [])
 	};
 
 	// Init actions
 	actions = {
 		extinguisher: new Action(
 			'extinguisher',
-			'Use fire extinguisher',
+			'Использовать огнетушитель',
 			['repair'],			
 			{
 				ignition: {
@@ -32,7 +32,7 @@ function main() {
 		),
 		depressurization: new Action(
 			'depressurization',
-			'Depressurization cell',
+			'Разгерметизировать отсек',
 			['programming'],
 			{
 				ignition: {
@@ -50,8 +50,8 @@ function main() {
 	characters = {
 		saver: new Character(
 			'saver',
-			'Bruce Willis',
-			'saver',
+			'Брюс Уиллис',
+			'Спасатель',
 			{
 				engineering: 9,
 				medicine: 6,
@@ -62,8 +62,8 @@ function main() {
 		),
 		physic: new Character(
 			'physic',
-			'Sheldon Cooper',
-			'physic',
+			'Шелдон Купер',
+			'Физик-теоретик',
 			{
 				engineering: 3,
 				medicine: 3,
@@ -74,8 +74,8 @@ function main() {
 		),
 		medic: new Character(
 			'medic',
-			'Gregory House',
-			'medic',
+			'Грегори Хаус',
+			'Диагност, иммунолог',
 			{
 				engineering: 3,
 				medicine: 9,
@@ -88,8 +88,8 @@ function main() {
 
 	// Init mission 1 rooms
 	var rooms = {
-		room1: new Room('room1', 'Room 1', ['ignition']),
-		room2: new Room('room2', 'Room 2', ['fire', 'activeDepressurization'])
+		room1: new Room('room1', 'Комната 1', ['ignition']),
+		room2: new Room('room2', 'Комната 2', ['fire', 'activeDepressurization'])
 	};
 
 	// Init mission 1
