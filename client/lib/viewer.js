@@ -40,7 +40,7 @@ function show() {
 }
 
 function formRoomInfoDiv(room) {
-	var div = '<div><div><b>' + room.name + '</b> ';
+	var div = '<div><div><b>' + room.name + '</b>, хп: ' + room.hp;
 	if (room.states.length == 0) {
 		div += '<div>-</div>';
 	}
@@ -58,7 +58,9 @@ function formActionDiv(room, state, action) {
 	if (activeCharacter != null) {
 		params = 'style="background-color: #dddddd" onclick="setCharacterAction(\''+activeCharacter.id+'\', \''+room.id+'\', \''+state.id+'\', \''+action.id+'\')" onmouseover="this.setAttribute(\'style\', \'background-color: #ffff00; cursor: pointer\')" onmouseout="this.setAttribute(\'style\', \'background-color: #dddddd\')"';
 	}
-	var div = '<div ' + params + '><b>' + room.name + '</b>: ' + action.name + ' на "' + state.name + '"(' + action.skills.join(',') + ') - ' + action.toStates[state.id].no + ((Object.keys(action.toStates[state.id]).length > 1) ? '*' : '') + ' </div>';
+	console.log(action.toStates);
+	console.log(state.id);
+	var div = '<div ' + params + '><b>' + room.name + '</b>: ' + action.name + ' на "' + state.name + '"(' + action.skills.join(',') + ') - ' + action.toStates[state.id].difficult + ' </div>';
 	return div;
 }
 

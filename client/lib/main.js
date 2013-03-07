@@ -8,9 +8,10 @@ var activeCharacter = null;
 function main() {
 	// Init states
 	states = {
-		ignition: new State('ignition', 'Возгорание', 1, {newState: 'fire'}, ['extinguisher', 'depressurization']),
-		fire: new State('fire', 'Пожар', 1, {hp: -1}, ['extinguisher', 'depressurization']),
-		activeDepressurization: new State('activeDepressurization', 'Системе разгерметизации активна', 1, {}, [])
+		ignition: new State('ignition', 'Возгорание', 1, {newState: 'fire'}, ['extinguisher', 'useDepressurization']),
+		fire: new State('fire', 'Пожар', 1, {hp: 1}, ['extinguisher', 'useDepressurization']),
+		notActiveDepressurization: new State('notActiveDepressurization', 'Система разгерметизации неактивна', 1, {}, ['activateDepressurization']),
+		activeDepressurization: new State('activeDepressurization', 'Система разгерметизации активна', 1, {}, [])
 	};
 
 	// Init actions
@@ -18,32 +19,46 @@ function main() {
 		extinguisher: new Action(
 			'extinguisher',
 			'Использовать огнетушитель',
-			['repair'],			
+			['engineering'],
 			{
 				ignition: {
-					no: 8
+					difficult: 8,
+					to: 'no'
 				},
 				fire: {
-					no: 12,
-					ignition: 7
+					difficult: 12,
+					to: 'no'
 				}
 			},
 			[]
 		),
-		depressurization: new Action(
-			'depressurization',
+		useDepressurization: new Action(
+			'useDepressurization',
 			'Разгерметизировать отсек',
 			['programming'],
 			{
 				ignition: {
-					no: 8
+					difficult: 6,
+					to: 'no'
 				},
 				fire: {
-					no: 12,
-					ignition: 7
+					difficult: 6,
+					to: 'no'
 				}
 			},
 			['activeDepressurization']
+		),
+		activateDepressurization: new Action(
+			'activateDepressurization',
+			'Активировать систему разгерметизации',
+			['programming'],
+			{
+				notActiveDepressurization: {
+					difficult: 12,
+					to: 'activeDepressurization'
+				}
+			},
+			[]
 		)
 	};
 
@@ -88,8 +103,8 @@ function main() {
 
 	// Init mission 1 rooms
 	var rooms = {
-		room1: new Room('room1', 'Комната 1', ['ignition']),
-		room2: new Room('room2', 'Комната 2', ['fire', 'activeDepressurization'])
+		room1: new Room('room1', 'Комната 1', 5, ['ignition']),
+		room2: new Room('room2', 'Комната 2', 5, ['fire', 'notActiveDepressurization'])
 	};
 
 	// Init mission 1
