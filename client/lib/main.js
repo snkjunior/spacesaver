@@ -6,6 +6,7 @@ var actions = {};
 var activeCharacter = null;
 
 function main() {
+	alert(1);
 	// Init states
 	states = {
 		ignition: new State('ignition', 'Возгорание', 1, {newState: 'fire'}, ['extinguisher', 'useDepressurization']),
@@ -101,14 +102,16 @@ function main() {
 		)
 	};
 
+	alert(1);
+
 	// Init mission 1 rooms
 	var rooms = {
-		room1: new Room('room1', 'Комната 1', 5, ['ignition']),
-		room2: new Room('room2', 'Комната 2', 5, ['fire', 'notActiveDepressurization'])
+		room1: new Room('room1', 1, 1, 'Комната 1', 5, ['ignition']),
+		room2: new Room('room2', 2, 1, 'Комната 2', 5, ['fire', 'notActiveDepressurization'])
 	};
 
 	// Init mission 1
 	mission = new Mission(rooms);
 
-	show();
+	viewer.showMap(mission);
 }
