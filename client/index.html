@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title></title>
@@ -5,36 +6,15 @@
 
 		<script type="text/javascript" src="lib/jquery.js"></script>
 
-		<script type="text/javascript" src="lib/main.js"></script>
-		<script type="text/javascript" src="lib/viewer.js"></script>
 		<script type="text/javascript" src="lib/handler.js"></script>
-		<script type="text/javascript" src="lib/objects/action.js"></script>
-		<script type="text/javascript" src="lib/objects/character.js"></script>
-		<script type="text/javascript" src="lib/objects/mission.js"></script>
-		<script type="text/javascript" src="lib/objects/room.js"></script>
-		<script type="text/javascript" src="lib/objects/state.js"></script>
+		<script type="text/javascript" src="lib/objects.js"></script>
+		<script type="text/javascript" src="lib/viewer.js"></script>
+		<script type="text/javascript" src="lib/main.js"></script>
 	</head>
 	<body onload="main()">
-		<table style="width: 100%; height: 600px; text-align: center;" border="1">
-			<tr style="height: 30px;">
-				<th>Спасатели</th>
-				<th>Действия</th>
-				<th>Информация</th>
-			</tr>
-			<tr valign="top">
-				<td id="charactersPanel" style="width: 350px;">
-					
-				</td>
-				<td id="actionPanel">
-
-				</td>
-				<td id="infoPanel" style="width: 200px;">
-					
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3"><input type="button" value="End turn" onclick="turn()"></td>
-			</tr>
-		</table>
+		<div>
+			<div id="map" style="width: 640px; height: 640px; position: absolute; left: 0px; top: 0px; border: 2px ridge;"></div>
+			<div id="info" style="width: 250px; height: 640px; left:650px; top: 0px; position: absolute; border: 2px ridge"></div>
+		</div>
 	</body>
 </html>

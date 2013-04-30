@@ -1,94 +1,65 @@
-function show() {
-	$('#charactersPanel').html('');
-	$('#actionPanel').html('');
-	$('#infoPanel').html('');
+var viewer = {
+	showMap: function() {
+		var map = $("#map");
+		map.html("");
 
-	for (var characterId in characters) {
-		$('#charactersPanel').append(formCharacterDiv(characters[characterId]));
-	}
+		var sprite;
 
-	for (var roomId in mission.rooms) {
-		var room = mission.rooms[roomId];
-		$('#infoPanel').append(formRoomInfoDiv(room));
+		for (var moduleId in mission.modules) {
+			var module = mission.modules[moduleId];
+			sprite = "module.png";
+			var div = "<div style='left:"+(module.x*64)+"px; top: "+(module.y*64)+"px; width: 64px; height: 64px; position: absolute;' onmouseover='viewer.showModuleInfo(\""+module.id+"\")'>";
+			div += "<img src='image/"+sprite+"'>";
+			div += "</div>";
 
-		if(room.states.length) {
-			for (var i = 0; i < room.states.length; i++) {
-				var state = states[room.states[i]];
-				for (var j = 0; j < state.actions.length; j++) {
-					var action = actions[state.actions[j]];
-					var isConditions = true;
-					$.each(action.conditions, function(id, actionStateId) {
-						isConditionExist = false;
-						$.each(room.states, function(id, roomStateId) {
-							if(actionStateId == roomStateId) {
-								isConditionExist = true;
-							}
-						})
-
-						if(!isConditionExist) {
-							isConditions = false;
-						}
-					});
-
-					if(isConditions) {
-						$('#actionPanel').append(formActionDiv(room, state, action));
-					}
-				}
-			}
+			map.append(div);
 		}
-	}
-}
+	},
 
-function formRoomInfoDiv(room) {
-	var div = '<div><div><b>' + room.name + '</b>, хп: ' + room.hp;
-	if (room.states.length == 0) {
-		div += '<div>-</div>';
-	}
-	else {
-		$.each(room.states, function(id, stateId) {
-			div += '<div>'+states[stateId].name+'</div>';
-		})
-	}
-	div += '<div style="height: 10px;"></div></div>';
-	return div;
-}
+	showModuleInfo: function(moduleId) {
+		this.clearInfoPanel();
+		var module = mission.modules[moduleId];
+		$("#info").append("<div style='width:100%; text-align: center;'>"+module.name+"</div>");
+		$("#info").append("<div style='width:100%; text-align: center;'><hr width='80%'></div>");
 
-function formActionDiv(room, state, action) {
-	var params = '';
-	if (activeCharacter != null) {
-		params = 'style="background-color: #dddddd" onclick="setCharacterAction(\''+activeCharacter.id+'\', \''+room.id+'\', \''+state.id+'\', \''+action.id+'\')" onmouseover="this.setAttribute(\'style\', \'background-color: #ffff00; cursor: pointer\')" onmouseout="this.setAttribute(\'style\', \'background-color: #dddddd\')"';
-	}
-	console.log(action.toStates);
-	console.log(state.id);
-	var div = '<div ' + params + '><b>' + room.name + '</b>: ' + action.name + ' на "' + state.name + '"(' + action.skills.join(',') + ') - ' + action.toStates[state.id].difficult + ' </div>';
-	return div;
-}
+		$("#info").append("<div style='width:100%; text-align: center;'>Структура:</div>");
+		$("#info").append("<div style='width:100%; text-align: center;'>"+module.hp+"</div>");
 
-function formCharacterDiv(character) {
-	var div;
-	if(activeCharacter != null && activeCharacter == character) {
-		div = '<div style="background-color: #00ff00; cursor: pointer" onclick="unselectCharacter(\''+character.id+'\')"><div><b>' + character.name + '</b></div>';
+		$("#info").append("<br>");
+
+		$("#info").append("<div style='width:100%; text-align: center;'>Состояния:</div>");
+		if (module.states.length != 0) {
+			$.each(module.states, function(key, stateId) {
+				$("#info").append("<div style='width:100%; text-align: center;'>"+states[stateId].name+"</div>");
+			});
+		}
+		else {
+			$("#info").append("<div style='width:100%; text-align: center;'>-</div>");
+		}
+
+		$("#info").append("<br>");
+		$("#info").append("<div style='width:100%; text-align: center;'>Спасатели:</div>");
+
+		charactersInModule = [];
+
+		$.each(characters, function(characterId, character) {
+			if (character.moduleId == moduleId) {
+				charactersInModule.push(characterId);
+			}
+		});
+
+		if (charactersInModule.length != 0) {
+			$.each(charactersInModule, function(value, characterId) {
+				$("#info").append("<div style='width:100%; text-align: center;'>"+characters[characterId].name+", "+characters[characterId].job+"</div>");
+			});
+		}
+		else {
+			$("#info").append("<div style='width:100%; text-align: center;'>-</div>");
+		}
+
+	},
+
+	clearInfoPanel: function() {
+		$("#info").html("");
 	}
-	else {
-		div = '<div style="background-color: #dddddd" onclick="selectCharacter(\''+character.id+'\')" onmouseover="this.setAttribute(\'style\', \'background-color: #ffff00; cursor: pointer\')" onmouseout="this.setAttribute(\'style\', \'background-color: #dddddd\')"><div><b>' + character.name + '</b></div>';
-	}
-	div += '<div>  профессия: ' + character.job + ' </div>';
-	div += '<div>  инженерия: ' + character.skills.engineering + ' </div>';
-	div += '<div>  медицина: ' + character.skills.medicine + ' </div>';
-	div += '<div>  программирование: ' + character.skills.programming + ' </div>';
-	div += '<div>  физика: ' + character.skills.physics + ' </div>';
-	var actionName = '-';
-	var actionRoom = '-';
-	var actionState = '-';
-	if (mission.charactersAction[character.id]) {
-		var characterAction = mission.charactersAction[character.id];
-		actionName = actions[characterAction.actionId].name;
-		actionRoom = mission.rooms[characterAction.roomId].name;
-		actionState = states[characterAction.stateId].name;
-	}
-	div += '<div>  задание: ' + actionName + ' </div>';
-	div += '<div>  цель: ' + actionRoom + ' </div>';
-	div += '<div>  проблема: ' + actionState + ' </div>';
-	div += '</div>';	
-	return div;
 }

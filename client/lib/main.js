@@ -6,8 +6,6 @@ var actions = {};
 var activeCharacter = null;
 
 function main() {
-	alert(1);
-	// Init states
 	states = {
 		ignition: new State('ignition', 'Возгорание', 1, {newState: 'fire'}, ['extinguisher', 'useDepressurization']),
 		fire: new State('fire', 'Пожар', 1, {hp: 1}, ['extinguisher', 'useDepressurization']),
@@ -69,49 +67,29 @@ function main() {
 			'Брюс Уиллис',
 			'Спасатель',
 			{
-				engineering: 9,
-				medicine: 6,
+				engineering: 3,
+				medicine: 3,
 				physics: 3,
 				programming: 3
 			},
 			{}
-		),
-		physic: new Character(
-			'physic',
-			'Шелдон Купер',
-			'Физик-теоретик',
-			{
-				engineering: 3,
-				medicine: 3,
-				physics: 9,
-				programming: 6
-			},
-			{}
-		),
-		medic: new Character(
-			'medic',
-			'Грегори Хаус',
-			'Диагност, иммунолог',
-			{
-				engineering: 3,
-				medicine: 9,
-				physics: 6,
-				programming: 3
-			},
-			{}
-		)
+		)		
 	};
-
-	alert(1);
 
 	// Init mission 1 rooms
-	var rooms = {
-		room1: new Room('room1', 1, 1, 'Комната 1', 5, ['ignition']),
-		room2: new Room('room2', 2, 1, 'Комната 2', 5, ['fire', 'notActiveDepressurization'])
+	var modules = {
+		hq: new Module('hq', 3, 1, 'Командный центр', 5, ['ignition']),
+		rt: new Module('rt', 2, 1, 'Реактор', 5, ['ignition']),
+		med: new Module('med', 1, 1, 'Мед. блок', 5, ['fire', 'notActiveDepressurization']),
+		lb: new Module('lb', 2, 2, 'Спасательная шлюпка', 5, [])
 	};
 
+	characters.saver.moduleId = 'lb';
+
 	// Init mission 1
-	mission = new Mission(rooms);
+	mission = new Mission(modules);
 
 	viewer.showMap(mission);
+	return 1;
 }
+
