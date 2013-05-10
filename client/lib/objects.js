@@ -85,8 +85,17 @@ function Character(id, name, job, skills, equipment) {
 	this.job = job;
 	this.skills = skills;
 	this.equipment = equipment;
+	this.states;
 	this.moduleId;
 	this.actionId;
+}
+
+function State(id, name, difficult, effects, actions) {
+	this.id = id;
+	this.name = name;
+	this.difficult = difficult;
+	this.effects = effects;
+	this.actions = actions;
 }
 
 function Action(id, name, skills, toStates, conditions) {
@@ -133,10 +142,3 @@ function Module(id, x, y, name, hp, states) {
 	}
 }
 
-function State(id, name, difficult, effects, actions) {
-	this.id = id;
-	this.name = name;
-	this.difficult = difficult;
-	this.effects = effects;
-	this.actions = actions;
-}
