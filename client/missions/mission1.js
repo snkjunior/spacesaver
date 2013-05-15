@@ -36,6 +36,7 @@ mission.modules.lifeboat = {
 	id: "lifeboat",
 	x: 3,
 	y: 3,
+	hp: 1,
 	name: "Спасательная шлюпка",
 	states: ["evacuation_point"]
 }
@@ -51,3 +52,20 @@ mission.scripts.push({
 		state: "fire"
 	}
 });
+
+
+// Спасатели миссии
+mission.characters = {};
+mission.characters.saver1 = {
+	id: "saver1",
+	name: "Чак Норрис",
+	skills: {
+		engineering: 5,
+		medicine: 5,
+		programming: 5,
+		physics: 5
+	},
+	states: [],
+	moduleId: "lifeboat",
+	actionId: ""
+}

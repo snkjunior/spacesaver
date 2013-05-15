@@ -1,6 +1,6 @@
 var states = {};
 
-states.igintion = {
+states.ignition = {
 	id: "ignition",
 	name: "Возгорание",
 	result: {
