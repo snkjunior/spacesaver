@@ -20,7 +20,7 @@ mission.modules.cargobay = {
 	y: 2,
 	hp: 3,
 	name: "Грузовой отсек",
-	states: ["personal", "personal_injured"]
+	states: ["personal", "personal_injured", "fire"]
 }
 
 mission.modules.deckhouse = {
@@ -67,5 +67,23 @@ mission.characters.saver1 = {
 	},
 	states: [],
 	moduleId: "lifeboat",
-	actionId: ""
+	actionModuleId: "",
+	actionId: "",
+	stateId: ""
+}
+
+mission.characters.saver2 = {
+	id: "saver2",
+	name: "Брюс Виллис",
+	skills: {
+		engineering: 5,
+		medicine: 5,
+		programming: 5,
+		physics: 5
+	},
+	states: [],
+	moduleId: "lifeboat",
+	actionModuleId: "",
+	actionId: "",
+	stateId: ""
 }

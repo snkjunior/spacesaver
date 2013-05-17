@@ -7,23 +7,24 @@ actions.extinguish_the_fire = {
 	states: {
 		ignition: [
 			{
-				difficult: 8,
+				difficult: 10,
 				result: [
-					{type: "moduleState", result: "no"}
+					{type: "moduleRemoveState", value: "ignition"}
 				]
 			}
 		],
 		fire: [
 			{
-				difficult: 12,
+				difficult: 15,
 				result: [
-					{type: "moduleState", result: "no"}
+					{type: "moduleRemoveState", value: "fire"}
 				]
 			},
 			{
-				difficult: 8,
+				difficult: 10,
 				result: [
-					{type: "moduleState", result: "ignition"}
+					{type: "moduleRemoveState", value: "fire"},
+					{type: "moduleAddState", value: "ignition"}
 				]
 			}
 		]
@@ -32,15 +33,15 @@ actions.extinguish_the_fire = {
 };
 
 actions.cure_personal = {
-	id: "cure",
-	name: "Лечить",
-	skills: ["medic"],
+	id: "cure_personal",
+	name: "Лечить персонал",
+	skills: ["medicine"],
 	states: {
 		personal_injured: [
 			{
-				difficult: 10,
+				difficult: 15,
 				result: [
-					{type: "moduleState", result: "no"}
+					{type: "moduleRemoveState", value: "personal_injured"}
 				]
 			}
 		]
@@ -57,15 +58,16 @@ actions.start_evacuating = {
 			{
 				difficult: 0,
 				result: [
-					{type: "saverState", result: "evacuating"},
-					{type: "moduleState", result: "no"}
+					{type: "saverAddState", value: "evacuating"},
+					{type: "moduleRemoveState", value: "personal"}
 				]
 			}
 		]
 	},
 	conditions: [
-		{type: "modulesNoState", value: "personal_injured"},
-		{type: "modulesNoState", value: "fire"}
+		{type: "moduleNoState", value: "personal_injured"},
+		{type: "moduleNoState", value: "fire"},
+		{type: "saverNoState", value: "evacuating"}
 	]
 }
 
@@ -78,8 +80,8 @@ actions.evacuate = {
 			{
 				difficult: 0,
 				result: [
-					{type: "saverState", result: "no"},
-					{type: "missionEvacuated", result: "1"}
+					{type: "saverRemoveState", value: "evacuating"},
+					{type: "missionEvacuated", value: "1"}
 				]
 			}
 		]
