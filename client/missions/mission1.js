@@ -3,7 +3,7 @@ var mission = {};
 // Название миссии
 mission.name = "Mission 1";
 mission.goals = {
-	evacuate: 3,
+	evacuate: 3
 };
 
 // Модули миссии
@@ -44,17 +44,17 @@ mission.modules.lifeboat = {
 	states: ["evacuation_point"]
 }
 
-// Скрипты миссии
-mission.scripts = [];
-mission.scripts.push({
-	turn: 2,
-	type: "addState",
-	info: {
-		target: "module",
-		id: "cargobay",
-		state: "fire"
-	}
-});
+// Скрипты миссии - ПОКА НЕ РАБОТАЮТ!!!
+//mission.scripts = [];
+//mission.scripts.push({
+//	turn: 2,
+//	type: "addState",
+//	info: {
+//		target: "module",
+//		id: "cargobay",
+//		state: "fire"
+//	}
+//});
 
 
 // Спасатели миссии
