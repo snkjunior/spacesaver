@@ -15,6 +15,7 @@ states.fire = {
 	name: "Пожар",
 	result: [
 		{type: "moduleAddHp", value: "-1"},
+		{type: "setPersonalState", value: "personal_injured"}
 	],
 	actions: ["extinguish_the_fire"]
 };

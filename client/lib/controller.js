@@ -136,15 +136,32 @@ var controller = {
 									module.states.splice(id, 1);
 								}
 							});
-							turnResult.push("  - модуль '"+module.name+"' потерял статус '" + result.value + "'");
+							turnResult.push("  - модуль '"+module.name+"' потерял статус '" + states[result.value].name + "'");
 							break;
 						case "moduleAddState":
 							module.states.push(result.value);
-							turnResult.push("  - модуль '"+module.name+"' получил статус '" + result.value + "'");
+							turnResult.push("  - модуль '"+module.name+"' получил статус '" + states[result.value].name + "'");
 							break;
 						case "moduleAddHp":
 							module.hp += parseInt(result.value)
 							turnResult.push("  - изменилась структура модуля '"+module.name+"' на " + result.value + "; текущая структура модуля: " + module.hp);
+							break;
+						case "setPersonalState":
+							// Is there are personal in this module?
+							var isPersonalInModule = false;
+							var isStatusExists = false;
+							$.each(module.states, function(id, stateId) {
+								if (stateId == 'personal') {
+									isPersonalInModule = true;
+								}
+								if (stateId == result.value) {
+									isStatusExists = true;
+								}
+							});
+							if (isPersonalInModule && !isStatusExists) {
+								module.states.push(result.value);
+								turnResult.push("  - модуль '"+module.name+"' получил статус '" + states[result.value].name + "'");
+							}
 					}
 				});
 			}

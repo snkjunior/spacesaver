@@ -2,6 +2,9 @@ var mission = {};
 
 // Название миссии
 mission.name = "Mission 1";
+mission.goals = {
+	evacuate: 3,
+};
 
 // Модули миссии
 mission.modules = {};

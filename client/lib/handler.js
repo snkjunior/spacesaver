@@ -101,6 +101,10 @@ var handler = {
 			controller.processModuleStates(module);
 		}
 
+		viewer.clear()
+		viewer.showMap();
+		viewer.showCharacters();
+
 		alert(turnResult.join("\n"));
 	}
 };

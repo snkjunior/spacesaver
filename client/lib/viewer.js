@@ -1,4 +1,11 @@
 var viewer = {
+	clear: function() {
+		$("#map").html("");
+		$("#characters").html("");
+		$("#actions").html("");
+		$("#info").html("");
+	},
+
 	// Show mission map
 	showMap: function() {
 		var map = $("#map");
