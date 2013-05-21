@@ -45,6 +45,53 @@ var viewer = {
 		});
 	},
 
+	showGoals: function() {
+		var goals = "";
+
+		// Время
+		if (mission.goals.time != undefined && mission.goals.time != -1) {
+			goals += 'Ходов до окончания миссии: ' + mission.goals.time + '\n\n'
+		}
+
+		// Персонал
+		if (mission.goals.evacuated != undefined && mission.goals.evacuated != -1) {
+			if (mission.goals.evacuated == 0) {
+				goals += 'Эвакуация персонала: весь персонал эвакуирован.\n\n';
+			}
+			else {
+				goals += 'Эвакуация персонала: осталось эвакуировать ' + mission.goals.evacuated + ' группы. \n\n';
+			}
+		}
+
+		for (var moduleId in mission.goals.modules) {
+			var notResolvedStates = [];
+			$.each(mission.goals.modules[moduleId].noStates, function(id, goalStateId) {
+				$.each(mission.modules[moduleId].states, function(id, moduleStateId) {
+					if (moduleStateId == goalStateId) {
+						notResolvedStates.push(states[goalStateId].name);
+					}
+				})
+			});
+
+			if (notResolvedStates.length == 0) {
+				goals += 'Модуль "'+mission.modules[moduleId].name+'": все неполадки устранены.\n';
+			}
+			else {
+				goals += 'Модуль "'+mission.modules[moduleId].name+'": требуется устранить "'+notResolvedStates.join('", "')+'".\n';
+			}
+		}
+
+		goals += '\n';
+
+		for (var moduleId in mission.goals.modules) {
+			if (!mission.goals.modules[moduleId].canDestroyed) {
+				goals += 'Модуль "'+mission.modules[moduleId].name+'" должен уцелеть.\n';
+			}
+		}
+
+		alert(goals);
+	},
+
 	// Show active character actions in active module
 	showActions: function() {
 		var stateActionsList = controller.getModuleActionsByStates(activeModuleId, activeCharacterId);

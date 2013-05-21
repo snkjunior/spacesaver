@@ -110,6 +110,10 @@ var controller = {
 							character.states.push(result.value);
 							turnResult.push("  - персонаж получил статус '" + states[result.value].name + "'");
 							break;
+						case "missionEvacuated":
+							missions.goals.evacuated--;
+							turnResult.push("  - персонаж эвакуировал группу персонала");
+							break;
 					}
 				});
 				isActionSuccess = true;

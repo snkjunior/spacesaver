@@ -2,9 +2,38 @@ var mission = {};
 
 // Название миссии
 mission.name = "Mission 1";
-mission.goals = {
-	evacuate: 3
-};
+mission.goals = [
+	{
+		priority: 'primary',
+		time: 3,
+		type: 'evacuated',
+		value: 3
+	},
+	{
+		priority: 'primary',
+		time: -1,
+		type: 'moduleHasNoStates',
+		value: {
+			moduleId: 'reaktor',
+			states: ['fire', 'ignition']
+		}
+	},
+	{
+		priority: 'primary',
+		time: -1,
+		type: 'moduleSurvive',
+		value: 'reaktor'
+	},
+	{
+		priority: 'secondary',
+		time: 2,
+		type: 'moduleHasNoStates',
+		value: {
+			moduleId: 'cargobay',
+			states: ['fire', 'ignition']
+		}
+	}
+];
 
 // Модули миссии
 mission.modules = {};

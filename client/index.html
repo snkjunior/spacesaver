@@ -22,7 +22,10 @@
 	<body onload="main()">
 		<div>
 			<div id="characters" style="width: 200px; height: 590px; left: 10px; top: 10px; position: absolute; border: 0px ridge"></div>
-			<div id="endTurn" style="width: 200px; height: 30px; left: 10px; top: 620px; position: absolute; border: 2px ridge; background-color: #aaaaaa; text-align: center; vertical-align: middle; font-size: 22px" onmouseover="$(this).css('background-color', '#ffff00'); $(this).css('cursor', 'pointer')" onmouseout="$(this).css('background-color', '#aaaaaa'); $(this).css('cursor', 'default')" onclick="handler.endTurn()">Закончить ход</div>
+
+			<div id="goalsButton" style="width: 200px; height: 30px; left: 10px; top: 580px; position: absolute; border: 2px ridge; background-color: #aaaaaa; text-align: center; vertical-align: middle; font-size: 22px" onmouseover="$(this).css('background-color', '#ffff00'); $(this).css('cursor', 'pointer')" onmouseout="$(this).css('background-color', '#aaaaaa'); $(this).css('cursor', 'default')" onclick="handler.showGoals()">Цели задания</div>
+			<div id="endTurnButton" style="width: 200px; height: 30px; left: 10px; top: 620px; position: absolute; border: 2px ridge; background-color: #aaaaaa; text-align: center; vertical-align: middle; font-size: 22px" onmouseover="$(this).css('background-color', '#ffff00'); $(this).css('cursor', 'pointer')" onmouseout="$(this).css('background-color', '#aaaaaa'); $(this).css('cursor', 'default')" onclick="handler.endTurn()">Закончить ход</div>
+
 			<div id="map" style="width: 640px; height: 640px; position: absolute; left: 220px; top: 10px; border: 2px ridge;"></div>
 			<div id="info" style="width: 200px; height: 400px; left:870px; top: 10px; position: absolute; border: 2px ridge"></div>
 			<div id="actions" align="center" style="width: 200px; height: 230px; left: 870px; top: 420px; position: absolute; border: 2px ridge"></div>

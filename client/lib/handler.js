@@ -101,10 +101,18 @@ var handler = {
 			controller.processModuleStates(module);
 		}
 
+		if (mission.goals.time != -1) {
+			mission.goals.time--;
+		}
+
 		viewer.clear()
 		viewer.showMap();
 		viewer.showCharacters();
 
 		alert(turnResult.join("\n"));
+	},
+
+	showGoals: function() {
+		viewer.showGoals();
 	}
 };

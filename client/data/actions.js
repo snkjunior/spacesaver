@@ -81,7 +81,7 @@ actions.evacuate = {
 				difficult: 0,
 				result: [
 					{type: "saverRemoveState", value: "evacuating"},
-					{type: "missionEvacuated", value: "1"}
+					{type: "missionEvacuated", value: ""}
 				]
 			}
 		]
