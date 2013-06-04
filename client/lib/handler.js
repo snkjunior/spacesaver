@@ -101,9 +101,15 @@ var handler = {
 			controller.processModuleStates(module);
 		}
 
-		if (mission.goals.time != -1) {
-			mission.goals.time--;
-		}
+		// Mission goals
+		var primaryObjectivesState = -1;
+		$.each(mission.goals, function(id, goal) {
+			
+
+			if (mission.goals.time != -1) {
+				mission.goals.time--;
+			}
+		});
 
 		viewer.clear()
 		viewer.showMap();
@@ -113,6 +119,16 @@ var handler = {
 	},
 
 	showGoals: function() {
-		viewer.showGoals();
+		$('#objectives-info').html(viewer.showGoals());
+
+		$('#objectives-info').css('display', 'block');
+		$('#objectives-background').css('display', 'block');
+		$('#objectives-closeBtn').css('display', 'block');
+	},
+
+	closeGoals: function() {
+		$('#objectives-info').css('display', 'none');
+		$('#objectives-background').css('display', 'none');
+		$('#objectives-closeBtn').css('display', 'none');
 	}
 };

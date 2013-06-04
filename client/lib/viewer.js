@@ -46,50 +46,51 @@ var viewer = {
 	},
 
 	showGoals: function() {
-		var goals = "";
+		var goals = "<br>";
 
-		// Время
-		if (mission.goals.time != undefined && mission.goals.time != -1) {
-			goals += 'Ходов до окончания миссии: ' + mission.goals.time + '\n\n'
-		}
+		$.each(mission.goals, function(id, goal) {
+			var goalInfo = ""
+			var border = "#B8860B";
+			var bg = "#EEDD82";
+			if (goal.active) {
+				if (goal.priority == "primary") {
+					goalInfo += "<b>Первоочередная задача</b><br>";
+				}
+				else {
+					goalInfo += "<b>Дополнительная задача</b><br>";
+				}
 
-		// Персонал
-		if (mission.goals.evacuated != undefined && mission.goals.evacuated != -1) {
-			if (mission.goals.evacuated == 0) {
-				goals += 'Эвакуация персонала: весь персонал эвакуирован.\n\n';
+				switch(goal.type) {
+					case 'evacuate':
+						goalInfo += "Эвакуировать персонал: " + goal.value + "";
+						break;
+					case 'moduleHasNoStates':
+						var stateNames = [];
+						$.each(goal.value.states, function(id, stateId) {
+							stateNames.push(states[stateId].name);
+						})
+						goalInfo += "Модуль '" + mission.modules[goal.value.moduleId].name + "' не должен иметь состояния: '" + stateNames.join("', '") + "'";
+						break;
+					case 'moduleSurvive':
+						goalInfo += "Модуль '" + mission.modules[goal.value].name + "' должен уцелеть";
+						break;
+				}
+
+				if (goal.time != -1) {
+					goalInfo += "<br>Время: " + goal.time + "";
+				}
 			}
 			else {
-				goals += 'Эвакуация персонала: осталось эвакуировать ' + mission.goals.evacuated + ' группы. \n\n';
+				border = "#000000";
+				bg = "#dddddd";
+				goalInfo += "<b>Задача неизвестна</b>";
 			}
-		}
+			goals += "<div style='text-align: center; background-color: "+bg+";border: 4px ridge "+border+"; position: relative; width: 550px; left: 25px;'>";
+			goals += goalInfo;
+			goals += "</div><br>";
+		});
 
-		for (var moduleId in mission.goals.modules) {
-			var notResolvedStates = [];
-			$.each(mission.goals.modules[moduleId].noStates, function(id, goalStateId) {
-				$.each(mission.modules[moduleId].states, function(id, moduleStateId) {
-					if (moduleStateId == goalStateId) {
-						notResolvedStates.push(states[goalStateId].name);
-					}
-				})
-			});
-
-			if (notResolvedStates.length == 0) {
-				goals += 'Модуль "'+mission.modules[moduleId].name+'": все неполадки устранены.\n';
-			}
-			else {
-				goals += 'Модуль "'+mission.modules[moduleId].name+'": требуется устранить "'+notResolvedStates.join('", "')+'".\n';
-			}
-		}
-
-		goals += '\n';
-
-		for (var moduleId in mission.goals.modules) {
-			if (!mission.goals.modules[moduleId].canDestroyed) {
-				goals += 'Модуль "'+mission.modules[moduleId].name+'" должен уцелеть.\n';
-			}
-		}
-
-		alert(goals);
+		return goals;
 	},
 
 	// Show active character actions in active module

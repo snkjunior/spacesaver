@@ -29,6 +29,13 @@
 			<div id="map" style="width: 640px; height: 640px; position: absolute; left: 220px; top: 10px; border: 2px ridge;"></div>
 			<div id="info" style="width: 200px; height: 400px; left:870px; top: 10px; position: absolute; border: 2px ridge"></div>
 			<div id="actions" align="center" style="width: 200px; height: 230px; left: 870px; top: 420px; position: absolute; border: 2px ridge"></div>
+
+			<div id="objectives-background" style="width: 1080px; height: 650px; position: absolute; background-color: #000000; z-index: 9998; opacity: 0.6; display: none;"></div>
+			<div style="width: 600px; position: absolute;  z-index: 9999; left: 240px; top: 60px;">
+				<div id="objectives-info" style="border: 2px ridge; background-color: #ffffff; display: none;"></div>
+				<br>
+				<div id="objectives-closeBtn" style="width: 200px; height: 30px; position: relative; left: 200px; border: 2px ridge; background-color: #aaaaaa; text-align: center; vertical-align: middle; font-size: 22px; z-index: 9999; display: none;" onmouseover="$(this).css('background-color', '#ffff00'); $(this).css('cursor', 'pointer')" onmouseout="$(this).css('background-color', '#aaaaaa'); $(this).css('cursor', 'default')" onclick="handler.closeGoals()">Закрыть</div>
+			</div>
 		</div>
 	</body>
 </html>

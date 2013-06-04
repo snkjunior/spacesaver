@@ -6,23 +6,26 @@ mission.goals = [
 	{
 		priority: 'primary',
 		time: 3,
-		type: 'evacuated',
-		value: 3
+		type: 'evacuate',
+		value: 3,
+		active: true
 	},
 	{
-		priority: 'primary',
-		time: -1,
+		priority: 'secondary',
+		time: 2,
 		type: 'moduleHasNoStates',
 		value: {
 			moduleId: 'reaktor',
 			states: ['fire', 'ignition']
-		}
+		},
+		active: true
 	},
 	{
 		priority: 'primary',
 		time: -1,
 		type: 'moduleSurvive',
-		value: 'reaktor'
+		value: 'reaktor',
+		active: true
 	},
 	{
 		priority: 'secondary',
@@ -31,7 +34,8 @@ mission.goals = [
 		value: {
 			moduleId: 'cargobay',
 			states: ['fire', 'ignition']
-		}
+		},
+		active: false
 	}
 ];
 
